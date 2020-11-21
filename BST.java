@@ -55,9 +55,9 @@ public class BST<T extends Comparable<T>>
         if(node == null){
             return false;
         }
-        if(item.compareTo(node.data)==0){
+        if(item.compareTo(node.data)==0){//if item is similar to node.data return true
             return true;
-        }else if(item.compareTo(node.data)<0){
+        }else if(item.compareTo(node.data)<0){//if item is less that node.data, will go through left node else right node
             return find(item,node.left);
         }else{
             return find(item,node.right);
@@ -87,7 +87,7 @@ public class BST<T extends Comparable<T>>
         if (node == null){
             return new Node(item);
         }
-        if (node.data.compareTo(item) < 0){
+        if (item.compareTo(node.data) < 0){ //item is less than the node.data, insert item to the left node recursively,  else to the right recursively
             node.left = insert(item, node.left);
         }else{
             node.right = insert(item, node.right);
@@ -120,17 +120,17 @@ public class BST<T extends Comparable<T>>
             return null;
         
         }
-        if (node.data.compareTo(item) < 0){
+        if (node.data.compareTo(item) < 0){ // if node.data is less than item, delete the right node
 
             node.right = delete(item,node.right);
             return node;
 
-        }else if(node.data.compareTo(item) > 0){
+        }else if(node.data.compareTo(item) > 0){// if node.data is greater than item delete left node
 
             node.left = delete(item,node.left);
             return node;
 
-        }else{ // The key == node.data
+        }else{ 
 
             if(node.left == null){
 
@@ -140,18 +140,14 @@ public class BST<T extends Comparable<T>>
 
                 return node.left;
 
-            }else{ // 2 children: find in-order successor
+            }else{
 
                 if (node.right.left == null){
 
                     node.data = node.right.data;
                     node.right = node.right.right;
 
-                }/*else{
-
-                    node.data = removeSmallest(node.right);
-                
-                }*/
+                }
                 
                 return node;
             }
