@@ -163,31 +163,32 @@ public class BST<T extends Comparable<T>>
     */
     public int rangeSum(int L, int R)//l is lower, r upper
     {
-        int sum = 0;
+        Node<T> node;
+        while(node.compareTo(L)>0 && node.compareTo(R)<0){
+            if(node == null){
 
-        if(this.root == null){
+                return 0;
 
-            return 0;
+            }
 
+            if(node.data.compareTo(L) >= 0 && node.data.compareTo(R) <= 0){
+
+                return (1 + rangeSum(L,R)); 
+
+            }else if(node.data.compareTo(L) < 0){ 
+                
+                node.left = rangeSum(L,R);
+                return node.data;
+
+            }else{ 
+               
+                node.right = rangeSum(L,R);
+                return node.data;
+
+            }
         }
 
-        if((int)this.root.data.compareTo(L) >= 0 && (int)this.root.data.compareTo(R) <= 0){
-
-            return (1 + rangeSum(L,R)); 
-
-        }else if(this.root.data.compareTo(L) < 0){ 
-            
-            //sum+=L;
-            return rangeSum(L+1, R);
-
-        }else{ 
-           
-            //sum+=R;
-            return rangeSum(L, R+1);
-
-        }
-
-        return sum;
+        //return sum;
         //while bst comparing given node with its range
             //from left to right 
             //at any given node take sum of children
