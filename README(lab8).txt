@@ -1,0 +1,1 @@
+I've been having issues contructing the rangeSum function as I understand how its suppose to implement as recursively adding the nodes within a certain rnange, however, the issue that keeps coming up to me is that I can't compare the comparable node with L nor R because of type differences.
