@@ -167,7 +167,7 @@ public class BST<T extends Comparable<T>>
     */
     public int rangeSum(int L, int R)//l is lower, r upper
     {
-        
+        int sum = 0;
 
         if(this.root == null){
 
@@ -175,19 +175,23 @@ public class BST<T extends Comparable<T>>
 
         }
 
-        if(this.root.data.compareTo(L) >= 0 && this.root.data.compareTo(R) <= 0){
+        if((int)this.root.data.compareTo(L) >= 0 && (int)this.root.data.compareTo(R) <= 0){
 
             return (1 + rangeSum(L,R)); 
 
-        }else if(this.root.data < L){ 
+        }else if(this.root.data.compareTo(L) < 0){ 
             
-            return rangeSum(L, R) ;
+            //sum+=L;
+            return rangeSum(L+1, R);
 
         }else{ 
            
-            return rangeSum(L, R);
+            //sum+=R;
+            return rangeSum(L, R+1);
 
         }
+
+        return sum;
         //while bst comparing given node with its range
             //from left to right 
             //at any given node take sum of children
