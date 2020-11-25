@@ -161,32 +161,33 @@ public class BST<T extends Comparable<T>>
     * @param R the right bound
     * @return The sum of the range in the binary tree
     */
-    public int rangeSum(int L, int R)//l is lower, r upper
+    public int rangeSum(Node node, int L, int R)//l is lower, r upper
     {
-        Node<T> node;
-        while(node.compareTo(L)>0 && node.compareTo(R)<0){
-            if(node == null){
+        if(node == null){
 
-                return 0;
+            return 0;
 
-            }
-
-            if(node.data.compareTo(L) >= 0 && node.data.compareTo(R) <= 0){
-
-                return (1 + rangeSum(L,R)); 
-
-            }else if(node.data.compareTo(L) < 0){ 
-                
-                node.left = rangeSum(L,R);
-                return node.data;
-
-            }else{ 
-               
-                node.right = rangeSum(L,R);
-                return node.data;
-
-            }
         }
+        else if( L <= (int)node.data && (int)node.data <= R){
+
+            return rangeSum(node.left, L, R) + rangeSum(node.right, L, R) + (int)node.data;
+        
+        }
+        else if(L > (int)node.data){
+            
+            return rangeSum(node.right, L, R);
+        
+        }else{
+            
+            return rangeSum(node.left, L, R);
+        
+        }
+        
+    }
+    public int rangeSum(int L, int R){
+        
+        return rangeSum(this.root,L,R);
+    
 
         //return sum;
         //while bst comparing given node with its range
@@ -213,12 +214,13 @@ public class BST<T extends Comparable<T>>
     */
     private void print(Node<T> root)
     {
-        if (root == null) {
-            return;
+        if (root != null) {
+            print(root.left);
+            System.out.println("We are at root: " + root.data);
+            print(root.right);
+        
         } 
-        print(root.left);
-        System.out.printf("%s ", root.data);
-        print(root.right);
+        
         //TODO FILL IN FUNCITON
         //throw new UnsupportedOperationException("Not yet implemented");
     }
